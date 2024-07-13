@@ -1,0 +1,201 @@
+{
+  "address": "0x950F0033940c5B4705EA41e008D6C3f1A29E0882",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "tokenAddress",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [],
+      "name": "getChainlinkDataFeedLatestAnswer",
+      "outputs": [
+        {
+          "internalType": "int256",
+          "name": "",
+          "type": "int256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "minter",
+      "outputs": [
+        {
+          "internalType": "contract TokenInterface",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "purchaseTokens",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "amountETH",
+          "type": "uint256"
+        }
+      ],
+      "name": "tokenAmount",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "tokenPrice",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "withdraw",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "stateMutability": "payable",
+      "type": "receive"
+    }
+  ],
+  "transactionHash": "0xe5d0026bb38df580c6eaebfc0a5710b662701608abf562c0df56f60a5cc883bf",
+  "receipt": {
+    "to": null,
+    "from": "0xF51139cE0610b96e855b451B6c46FC561c07336c",
+    "contractAddress": "0x950F0033940c5B4705EA41e008D6C3f1A29E0882",
+    "transactionIndex": 61,
+    "gasUsed": "407123",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0x8180f3d00a0967a5b68b2a529cbefe04e9e03ab802a345fef84393fe5e1ad58a",
+    "transactionHash": "0xe5d0026bb38df580c6eaebfc0a5710b662701608abf562c0df56f60a5cc883bf",
+    "logs": [],
+    "blockNumber": 6303281,
+    "cumulativeGasUsed": "7709072",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [
+    "0x6c18781189B63CB5E26021D280581356d334B20C"
+  ],
+  "numDeployments": 1,
+  "solcInputHash": "1a9b7ac14eb22a95535b8844fe906be9",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.19+commit.7dd6d404\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"tokenAddress\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[],\"name\":\"getChainlinkDataFeedLatestAnswer\",\"outputs\":[{\"internalType\":\"int256\",\"name\":\"\",\"type\":\"int256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"minter\",\"outputs\":[{\"internalType\":\"contract TokenInterface\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"purchaseTokens\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"amountETH\",\"type\":\"uint256\"}],\"name\":\"tokenAmount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"tokenPrice\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"withdraw\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"stateMutability\":\"payable\",\"type\":\"receive\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{\"getChainlinkDataFeedLatestAnswer()\":{\"notice\":\"Returns the latest answer\"}},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/TokenShop.sol\":\"TokenShop\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"contracts/AggregatorV3Interface.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.0;\\n\\ninterface AggregatorV3Interface {\\n  function decimals() external view returns (uint8);\\n\\n  function description() external view returns (string memory);\\n\\n  function version() external view returns (uint256);\\n\\n  function getRoundData(\\n    uint80 _roundId\\n  ) external view returns (uint80 roundId, int256 answer, uint256 startedAt, uint256 updatedAt, uint80 answeredInRound);\\n\\n  function latestRoundData()\\n    external\\n    view\\n    returns (uint80 roundId, int256 answer, uint256 startedAt, uint256 updatedAt, uint80 answeredInRound);\\n}\\n\",\"keccak256\":\"0xfe4e8bb4861bb3860ba890ab91a3b818ec66e5a8f544fb608cfcb73f433472cd\",\"license\":\"MIT\"},\"contracts/TokenShop.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity 0.8.19;\\n\\nimport \\\"./AggregatorV3Interface.sol\\\";\\n\\ninterface TokenInterface {\\n    function mint(address account, uint256 amount) external;\\n}\\n\\ncontract TokenShop {\\n    \\n\\tAggregatorV3Interface internal priceFeed;\\n\\tTokenInterface public minter;\\n\\tuint256 public tokenPrice = 200; //1 token = 2.00 usd, with 2 decimal places\\n\\taddress public owner;\\n    \\n\\tconstructor(address tokenAddress) {\\n    \\tminter = TokenInterface(tokenAddress);\\n        /**\\n        * Network: Sepolia\\n        * Aggregator: ETH/USD\\n        * Address: 0x694AA1769357215DE4FAC081bf1f309aDC325306\\n        */\\n        priceFeed = AggregatorV3Interface(0x694AA1769357215DE4FAC081bf1f309aDC325306);\\n        // owner = msg.sender;\\n        // set me as owner instead of the burner deployer wallet at 0xF51139cE0610b96e855b451B6c46FC561c07336c\\n        // the original deployer is a yarn generate account\\n        owner = address(0x8DabF51501196a7700c97616bD82791cF31Ac685);\\n\\t}\\n\\n\\t/**\\n \\t* Returns the latest answer\\n \\t*/\\n\\tfunction getChainlinkDataFeedLatestAnswer() public view returns (int) {\\n    \\t(\\n        \\t/*uint80 roundID*/,\\n        \\tint price,\\n        \\t/*uint startedAt*/,\\n        \\t/*uint timeStamp*/,\\n        \\t/*uint80 answeredInRound*/\\n    \\t) = priceFeed.latestRoundData();\\n    \\treturn price;\\n\\t}\\n\\n\\tfunction tokenAmount(uint256 amountETH) public view returns (uint256) {\\n    \\t//Sent amountETH, how many usd I have\\n    \\tuint256 ethUsd = uint256(getChainlinkDataFeedLatestAnswer());\\t\\t//with 8 decimal places\\n    \\tuint256 amountUSD = amountETH * ethUsd / 10**18; //ETH = 18 decimal places\\n    \\tuint256 amountToken = amountUSD / tokenPrice / 10**(8/2);  //8 decimal places from ETHUSD / 2 decimal places from token \\n    \\treturn amountToken;\\n\\t} \\n\\n    function purchaseTokens() external payable {\\n        uint256 amountToken = tokenAmount(msg.value);\\n        require(amountToken > 0, \\\"Insufficient ETH to purchase tokens\\\");\\n        minter.mint(msg.sender, amountToken);\\n    }\\n\\n\\treceive() external payable {\\n    \\tuint256 amountToken = tokenAmount(msg.value);\\n    \\tminter.mint(msg.sender, amountToken);\\n\\t}\\n\\n    modifier onlyOwner() {\\n        require(msg.sender == owner);\\n        _;\\n    }\\n\\n    function withdraw() external onlyOwner {\\n        payable(owner).transfer(address(this).balance);\\n    }    \\n}\\n\",\"keccak256\":\"0xe032518d66c205ced4792d4b5a1391ac606722707f13ed4f7d26d39c938e0a56\",\"license\":\"MIT\"}},\"version\":1}",
+  "bytecode": "0x608060405260c860025534801561001557600080fd5b5060405161059138038061059183398101604081905261003491610094565b600180546001600160a01b039092166001600160a01b031992831617905560008054821673694aa1769357215de4fac081bf1f309adc32530617905560038054909116738dabf51501196a7700c97616bd82791cf31ac6851790556100c4565b6000602082840312156100a657600080fd5b81516001600160a01b03811681146100bd57600080fd5b9392505050565b6104be806100d36000396000f3fe6080604052600436106100745760003560e01c806345ab331e1161004e57806345ab331e146101465780637ff9b596146101745780638da5cb5b1461018a578063bea4dfb5146101aa57600080fd5b806307546172146100ec5780633290ce29146101295780633ccfd60b1461013157600080fd5b366100e7576000610084346101bf565b6001546040516340c10f1960e01b8152336004820152602481018390529192506001600160a01b0316906340c10f1990604401600060405180830381600087803b1580156100d157600080fd5b505af11580156100e5573d6000803e3d6000fd5b005b600080fd5b3480156100f857600080fd5b5060015461010c906001600160a01b031681565b6040516001600160a01b0390911681526020015b60405180910390f35b6100e5610213565b34801561013d57600080fd5b506100e56102e7565b34801561015257600080fd5b506101666101613660046103b3565b6101bf565b604051908152602001610120565b34801561018057600080fd5b5061016660025481565b34801561019657600080fd5b5060035461010c906001600160a01b031681565b3480156101b657600080fd5b5061016661033a565b6000806101ca61033a565b90506000670de0b6b3a76400006101e183866103cc565b6101eb91906103f7565b905060006127106002548361020091906103f7565b61020a91906103f7565b95945050505050565b600061021e346101bf565b9050600081116102805760405162461bcd60e51b815260206004820152602360248201527f496e73756666696369656e742045544820746f20707572636861736520746f6b604482015262656e7360e81b606482015260840160405180910390fd5b6001546040516340c10f1960e01b8152336004820152602481018390526001600160a01b03909116906340c10f1990604401600060405180830381600087803b1580156102cc57600080fd5b505af11580156102e0573d6000803e3d6000fd5b5050505050565b6003546001600160a01b031633146102fe57600080fd5b6003546040516001600160a01b03909116904780156108fc02916000818181858888f19350505050158015610337573d6000803e3d6000fd5b50565b6000805460408051633fabe5a360e21b8152905183926001600160a01b03169163feaf968c9160048083019260a09291908290030181865afa158015610384573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906103a89190610438565b509195945050505050565b6000602082840312156103c557600080fd5b5035919050565b80820281158282048414176103f157634e487b7160e01b600052601160045260246000fd5b92915050565b60008261041457634e487b7160e01b600052601260045260246000fd5b500490565b805169ffffffffffffffffffff8116811461043357600080fd5b919050565b600080600080600060a0868803121561045057600080fd5b61045986610419565b945060208601519350604086015192506060860151915061047c60808701610419565b9050929550929590935056fea264697066735822122070254327c54727ff206d5cc68b17ef35236054d07c4ab1f07c70f5be07217f8064736f6c63430008130033",
+  "deployedBytecode": "0x6080604052600436106100745760003560e01c806345ab331e1161004e57806345ab331e146101465780637ff9b596146101745780638da5cb5b1461018a578063bea4dfb5146101aa57600080fd5b806307546172146100ec5780633290ce29146101295780633ccfd60b1461013157600080fd5b366100e7576000610084346101bf565b6001546040516340c10f1960e01b8152336004820152602481018390529192506001600160a01b0316906340c10f1990604401600060405180830381600087803b1580156100d157600080fd5b505af11580156100e5573d6000803e3d6000fd5b005b600080fd5b3480156100f857600080fd5b5060015461010c906001600160a01b031681565b6040516001600160a01b0390911681526020015b60405180910390f35b6100e5610213565b34801561013d57600080fd5b506100e56102e7565b34801561015257600080fd5b506101666101613660046103b3565b6101bf565b604051908152602001610120565b34801561018057600080fd5b5061016660025481565b34801561019657600080fd5b5060035461010c906001600160a01b031681565b3480156101b657600080fd5b5061016661033a565b6000806101ca61033a565b90506000670de0b6b3a76400006101e183866103cc565b6101eb91906103f7565b905060006127106002548361020091906103f7565b61020a91906103f7565b95945050505050565b600061021e346101bf565b9050600081116102805760405162461bcd60e51b815260206004820152602360248201527f496e73756666696369656e742045544820746f20707572636861736520746f6b604482015262656e7360e81b606482015260840160405180910390fd5b6001546040516340c10f1960e01b8152336004820152602481018390526001600160a01b03909116906340c10f1990604401600060405180830381600087803b1580156102cc57600080fd5b505af11580156102e0573d6000803e3d6000fd5b5050505050565b6003546001600160a01b031633146102fe57600080fd5b6003546040516001600160a01b03909116904780156108fc02916000818181858888f19350505050158015610337573d6000803e3d6000fd5b50565b6000805460408051633fabe5a360e21b8152905183926001600160a01b03169163feaf968c9160048083019260a09291908290030181865afa158015610384573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906103a89190610438565b509195945050505050565b6000602082840312156103c557600080fd5b5035919050565b80820281158282048414176103f157634e487b7160e01b600052601160045260246000fd5b92915050565b60008261041457634e487b7160e01b600052601260045260246000fd5b500490565b805169ffffffffffffffffffff8116811461043357600080fd5b919050565b600080600080600060a0868803121561045057600080fd5b61045986610419565b945060208601519350604086015192506060860151915061047c60808701610419565b9050929550929590935056fea264697066735822122070254327c54727ff206d5cc68b17ef35236054d07c4ab1f07c70f5be07217f8064736f6c63430008130033",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {
+      "getChainlinkDataFeedLatestAnswer()": {
+        "notice": "Returns the latest answer"
+      }
+    },
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 4278,
+        "contract": "contracts/TokenShop.sol:TokenShop",
+        "label": "priceFeed",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_contract(AggregatorV3Interface)3886"
+      },
+      {
+        "astId": 4281,
+        "contract": "contracts/TokenShop.sol:TokenShop",
+        "label": "minter",
+        "offset": 0,
+        "slot": "1",
+        "type": "t_contract(TokenInterface)4275"
+      },
+      {
+        "astId": 4284,
+        "contract": "contracts/TokenShop.sol:TokenShop",
+        "label": "tokenPrice",
+        "offset": 0,
+        "slot": "2",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 4286,
+        "contract": "contracts/TokenShop.sol:TokenShop",
+        "label": "owner",
+        "offset": 0,
+        "slot": "3",
+        "type": "t_address"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_contract(AggregatorV3Interface)3886": {
+        "encoding": "inplace",
+        "label": "contract AggregatorV3Interface",
+        "numberOfBytes": "20"
+      },
+      "t_contract(TokenInterface)4275": {
+        "encoding": "inplace",
+        "label": "contract TokenInterface",
+        "numberOfBytes": "20"
+      },
+      "t_uint256": {
+        "encoding": "inplace",
+        "label": "uint256",
+        "numberOfBytes": "32"
+      }
+    }
+  }
+}
