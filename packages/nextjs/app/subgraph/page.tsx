@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import GreetingsTable from "./_components/GreetingsTable";
+import SVGTable from "./_components/SVGTable";
 import type { NextPage } from "next";
 import { MagnifyingGlassIcon, PlusIcon, PowerIcon, RocketLaunchIcon } from "@heroicons/react/24/outline";
 
@@ -13,7 +13,7 @@ const Subgraph: NextPage = () => {
             <span className="block text-2xl mb-2">Welcome to your</span>
             <span className="block text-4xl font-bold">Subgraph</span>
           </h1>
-          <p className="text-center text-lg">
+          {/* <p className="text-center text-lg">
             Look at the subgraph manifest defined in{" "}
             <code className="italic bg-base-300 text-base font-bold max-w-full break-words break-all inline-block">
               packages/subgraph/subgraph.yaml
@@ -34,10 +34,13 @@ const Subgraph: NextPage = () => {
             <code className="italic bg-base-300 text-base font-bold max-w-full break-words break-all inline-block">
               packages/subgraph/src/mapping.ts
             </code>
-          </p>
+          </p> */}
         </div>
         <div className="flex-grow bg-base-300 w-full mt-16 px-8 py-12">
-          <div className="flex justify-center items-center gap-12 flex-col sm:flex-row">
+          <p className="text-center text-lg">
+              This is the subgraph for the NFTs for Mr. Beast E-Commerce Contest
+          </p>
+          {/* <div className="flex justify-center items-center gap-12 flex-col sm:flex-row">
             <div className="flex flex-col bg-base-100 px-10 py-10 text-center items-center max-w-xs rounded-3xl">
               <PowerIcon className="h-8 w-8 fill-secondary" />
               <p className="text-center text-lg">
@@ -82,9 +85,9 @@ const Subgraph: NextPage = () => {
                 yarn clean-node
               </code>
             </div>
-          </div>
+          </div> */}
         </div>
-        <GreetingsTable />
+        <SVGTable />
       </div>
     </>
   );

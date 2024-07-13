@@ -43,45 +43,45 @@ const Home: NextPage = () => {
     functionName: "tokenURI",
     args: [BigInt(0)],
   });
-  
 
   useEffect(() => {
     if (tokenURIData) {
       const tokenURIString = tokenURIData.toString();
       setTokenURI(tokenURIString);
       console.log("Token URI:", tokenURIString);
+      console.log("Token URI Data:", tokenURIData);
     }
   }, [tokenURIData]);
 
-
-  const decodeBase64 = (base64String) => {
+  const decodeBase64 = base64String => {
     if (typeof window === "undefined") {
       // For Node.js
-      return Buffer.from(base64String, 'base64').toString('utf-8');
+      return Buffer.from(base64String, "base64").toString("utf-8");
     } else {
       // For browser environment
       const binaryString = window.atob(base64String);
       const bytes = Uint8Array.from(binaryString, char => char.charCodeAt(0));
-      const decoder = new TextDecoder('utf-8');
+      const decoder = new TextDecoder("utf-8");
       return decoder.decode(bytes);
     }
   };
 
   const decodeSVG = (tokenURI: string) => {
-    try {
-      const base64Json = tokenURI.split(",")[1];
-      const jsonString = decodeBase64(base64Json);
-      const json = JSON.parse(jsonString);
-      const base64Svg = json.image.split(",")[1];
-      return decodeBase64(base64Svg);
-    } catch (error) {
-      console.error("Error decoding SVG:", error);
-      return null;
+    if (tokenURI) {
+      try {
+        const base64Json = tokenURI.split(",")[1];
+        const jsonString = decodeBase64(base64Json);
+        const json = JSON.parse(jsonString);
+        const base64Svg = json.image.split(",")[1];
+        return decodeBase64(base64Svg);
+      } catch (error) {
+        console.error("Error decoding SVG:", error);
+        return null;
+      }
     }
   };
 
   const svgContent = decodeSVG(tokenURI);
-  
 
   return (
     <>
@@ -126,15 +126,13 @@ const Home: NextPage = () => {
             </button>
           </div>
         </div>
-        <div className="flex flex-wrap justify-center items-center space-x-2 flex-col sm:flex-row">
-        {tokenURI && (
+        {/* <div className="flex flex-wrap justify-center items-center space-x-2 flex-col sm:flex-row">
+          {tokenURI && (
             <div className="m-4 p-4 border border-gray-200 rounded">
-              {svgContent && (
-                <div dangerouslySetInnerHTML={{ __html: svgContent }} />
-              )}
+              {svgContent && <div dangerouslySetInnerHTML={{ __html: svgContent }} />}
             </div>
           )}
-        </div>
+        </div> */}
 
         {/* <h3 className="font-bold text-2xl">We use Chainlink Oracle to recieve ETH/USD price to fix price at USD</h3> */}
         {/* <p className="m-0 flex justify-center items-center">Total Supply of Beast Tokens: {totalSupply ? ethers.utils.formatUnits(totalSupply, 2) : 0}</p> */}

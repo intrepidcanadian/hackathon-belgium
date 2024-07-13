@@ -1,35 +1,32 @@
-import { BigInt, Address } from "@graphprotocol/graph-ts";
-import {
-  YourContract,
-  GreetingChange,
-} from "../generated/YourContract/YourContract";
-import { Greeting, Sender } from "../generated/schema";
+import { BigInt } from "@graphprotocol/graph-ts";
+import { Transfer } from "../generated/GamePriceSVG/GamePriceSVG";
+import { Token, Owner } from "../generated/schema";
+import { GamePriceSVG } from "../generated/GamePriceSVG/GamePriceSVG";
+import { Address } from "@graphprotocol/graph-ts";
 
-export function handleGreetingChange(event: GreetingChange): void {
-  let senderString = event.params.greetingSetter.toHexString();
+export function handleTransfer(event: Transfer): void {
+  let tokenId = event.params.tokenId.toString();
+  let token = Token.load(tokenId);
 
-  let sender = Sender.load(senderString);
-
-  if (sender === null) {
-    sender = new Sender(senderString);
-    sender.address = event.params.greetingSetter;
-    sender.createdAt = event.block.timestamp;
-    sender.greetingCount = BigInt.fromI32(1);
-  } else {
-    sender.greetingCount = sender.greetingCount.plus(BigInt.fromI32(1));
+  if (!token) {
+    token = new Token(tokenId);
+    token.createdAt = event.block.timestamp;
   }
 
-  let greeting = new Greeting(
-    event.transaction.hash.toHex() + "-" + event.logIndex.toString()
-  );
+  let owner = Owner.load(event.params.to.toHex());
+  if (!owner) {
+    owner = new Owner(event.params.to.toHex());
+    owner.address = event.params.to;
+    owner.save();
+  }
 
-  greeting.greeting = event.params.newGreeting;
-  greeting.sender = senderString;
-  greeting.premium = event.params.premium;
-  greeting.value = event.params.value;
-  greeting.createdAt = event.block.timestamp;
-  greeting.transactionHash = event.transaction.hash.toHex();
+  token.owner = owner.id;
+  token.tokenURI = fetchTokenURI(event.address, event.params.tokenId);
+  token.save();
+}
 
-  greeting.save();
-  sender.save();
+function fetchTokenURI(contractAddress: Address, tokenId: BigInt): string {
+  let contract = GamePriceSVG.bind(contractAddress);
+  let tokenURIResult = contract.try_tokenURI(tokenId);
+  return tokenURIResult.reverted ? "" : tokenURIResult.value;
 }

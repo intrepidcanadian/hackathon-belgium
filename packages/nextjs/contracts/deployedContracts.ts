@@ -488,6 +488,401 @@ const deployedContracts = {
           "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol",
       },
     },
+    RandomGenerator: {
+      address: "0x78eB9dBE70cbc99D725d5F5d0028846247881928",
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "subscriptionId",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "have",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "want",
+              type: "address",
+            },
+          ],
+          name: "OnlyCoordinatorCanFulfill",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "have",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "owner",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "coordinator",
+              type: "address",
+            },
+          ],
+          name: "OnlyOwnerOrCoordinator",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "ZeroAddress",
+          type: "error",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "address",
+              name: "vrfCoordinator",
+              type: "address",
+            },
+          ],
+          name: "CoordinatorSet",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "from",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "to",
+              type: "address",
+            },
+          ],
+          name: "OwnershipTransferRequested",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "from",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "to",
+              type: "address",
+            },
+          ],
+          name: "OwnershipTransferred",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "requestId",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "uint256[]",
+              name: "randomWords",
+              type: "uint256[]",
+            },
+          ],
+          name: "RequestFulfilled",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "requestId",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "uint32",
+              name: "numWords",
+              type: "uint32",
+            },
+          ],
+          name: "RequestSent",
+          type: "event",
+        },
+        {
+          inputs: [],
+          name: "acceptOwnership",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "lastRandomWords",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "lastRequestId",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "listNumbers",
+          outputs: [
+            {
+              internalType: "uint256[]",
+              name: "",
+              type: "uint256[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "maximum",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "owner",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "raffleResult",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "requestId",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256[]",
+              name: "randomWords",
+              type: "uint256[]",
+            },
+          ],
+          name: "rawFulfillRandomWords",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "requestIds",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint32",
+              name: "_amount",
+              type: "uint32",
+            },
+            {
+              internalType: "uint256",
+              name: "_maximum",
+              type: "uint256",
+            },
+          ],
+          name: "run",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "requestId",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "s_requests",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "fulfilled",
+              type: "bool",
+            },
+            {
+              internalType: "bool",
+              name: "exists",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "s_subscriptionId",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "s_vrfCoordinator",
+          outputs: [
+            {
+              internalType: "contract IVRFCoordinatorV2Plus",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_vrfCoordinator",
+              type: "address",
+            },
+          ],
+          name: "setCoordinator",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "to",
+              type: "address",
+            },
+          ],
+          name: "transferOwnership",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+      ],
+      inheritedFunctions: {
+        acceptOwnership:
+          "@chainlink/contracts/src/v0.8/vrf/dev/VRFConsumerBaseV2Plus.sol",
+        owner:
+          "@chainlink/contracts/src/v0.8/vrf/dev/VRFConsumerBaseV2Plus.sol",
+        rawFulfillRandomWords:
+          "@chainlink/contracts/src/v0.8/vrf/dev/VRFConsumerBaseV2Plus.sol",
+        s_vrfCoordinator:
+          "@chainlink/contracts/src/v0.8/vrf/dev/VRFConsumerBaseV2Plus.sol",
+        setCoordinator:
+          "@chainlink/contracts/src/v0.8/vrf/dev/VRFConsumerBaseV2Plus.sol",
+        transferOwnership:
+          "@chainlink/contracts/src/v0.8/vrf/dev/VRFConsumerBaseV2Plus.sol",
+      },
+    },
     Token: {
       address: "0x6c18781189B63CB5E26021D280581356d334B20C",
       abi: [

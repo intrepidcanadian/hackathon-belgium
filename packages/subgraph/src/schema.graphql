@@ -1,17 +1,12 @@
-type Greeting @entity {
+type Token @entity {
   id: ID!
-  sender: Sender!
-  greeting: String!
-  premium: Boolean
-  value: BigInt
+  tokenURI: String!
+  owner: Owner!
   createdAt: BigInt!
-  transactionHash: String!
 }
 
-type Sender @entity {
+type Owner @entity {
   id: ID!
   address: Bytes!
-  greetings: [Greeting!] @derivedFrom(field: "sender")
-  createdAt: BigInt!
-  greetingCount: BigInt!
+  tokens: [Token!] @derivedFrom(field: "owner")
 }
