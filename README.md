@@ -1,6 +1,6 @@
 # ETH GLOBAL BRUSSELS 2024
 
-Hackathon Video: https://www.canva.com/design/DAGK5Jquyqk/H__1DYuQGDGo1gmhaCQfpw/edit?utm_content=DAGK5Jquyqk&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
+Hackathon Video: https://www.loom.com/share/6b289d518cf6498091d16ce4a4a75787?sid=aceb7fb9-1321-43c5-9b4a-04994ae72eea
 
 Hackathon Presentation: https://www.canva.com/design/DAGK5Jquyqk/H__1DYuQGDGo1gmhaCQfpw/edit?utm_content=DAGK5Jquyqk&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
 
