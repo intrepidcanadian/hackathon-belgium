@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
 
-// Deploy on Fuji
 
 import {IVRFCoordinatorV2Plus} from "@chainlink/contracts/src/v0.8/vrf/dev/interfaces/IVRFCoordinatorV2Plus.sol";
 import {VRFConsumerBaseV2Plus} from "@chainlink/contracts/src/v0.8/vrf/dev/VRFConsumerBaseV2Plus.sol";
@@ -22,7 +21,9 @@ contract RandomGenerator is VRFConsumerBaseV2Plus {
     mapping(uint256 => RequestStatus) public s_requests; /* requestId --> requestStatus */   
 
     // https://docs.chain.link/vrf/v2/subscription/supported-networks
-    // Fuji coordinator
+    // Fuji coordinator switched to sepolia
+    // 0x8103B0A8A00be2DDC778e6e7eaa21791Cd364625
+    // 0x474e34a077df58807dbe9c96d3c009b23b3c6d0cce433e59bbf5b34f823bc56c
     // https://docs.chain.link/vrf/v2-5/supported-networks#avalanche-fuji-testnet
     IVRFCoordinatorV2Plus COORDINATOR;
     // sepolia 

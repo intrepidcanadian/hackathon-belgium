@@ -37,7 +37,7 @@ export const queryClient = new QueryClient({
   },
 });
 
-const subgraphUri = "https://api.studio.thegraph.com/query/54195/hackathon/version/latest";
+const subgraphUri = "https://api.studio.thegraph.com/proxy/54195/brusselsnft/version/latest/";
 const apolloClient = new ApolloClient({
   uri: subgraphUri,
   cache: new InMemoryCache(),

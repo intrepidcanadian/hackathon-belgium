@@ -1,4 +1,28 @@
+# ETH GLOBAL BRUSSELS 2024
+
+In this hackathon, I leveraged Shopify web pixels and QR Codes to show the data that can be collected and used for Chainlink Functions.
+
+The goal is to create transparency between e-commerce merchants and creators/influencers on key performance metrics which can be used to measure the impact of their marketing campaigns and align marketing expenditures with the value of marketing.
+
+I created a Chainlink Function which can extract in real-time, 
+
+1) the cumulative number of products viewed (i.e. measuring eyeballs)
+2) the cumulative value of orders added to cart (i.e. measuring intent)
+3) the cumulative number of checkouts (i.e. measuring conversions)
+4) the cumulative number of products purchased (i.e. measuring value of conversions)
+
+In this example, I show that this data can be filtered using QR Codes (referral source).
+
+Products used
+
+- Chainlink Functions for API calls on Shopify Web Pixels
+- Dynamic NFTs that uses Chainlink Data Feeds for retrieving benchmarket data (i.e. ETH price) and comparing it with checkout sales. SVG gets manipulated when checkout sales exceed ETH price. The Dynamic NFTs query the Chainlink Function contract to compare the two values.
+- Chainlink Oracle to allow for payment in ETH and fixing the price in USDC
+- Subgraph deployed on TheGraph on Sepolia to query the Dynamic NFTs (indexing SVG, tokenID and owners)
+
+
 # 🏗 Scaffold-ETH 2
+
 
 <h4 align="center">
   <a href="https://docs.scaffoldeth.io">Documentation</a> |

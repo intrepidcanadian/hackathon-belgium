@@ -1,98 +1,138 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
 
-// import {FunctionsClient} from "@chainlink/contracts/src/v0.8/functions/dev/v1_0_0/FunctionsClient.sol";
-// import {FunctionsRequest} from "@chainlink/contracts/src/v0.8/functions/dev/v1_0_0/libraries/FunctionsRequest.sol";
-import {FunctionsClient} from "@chainlink/contracts/src/v0.8/functions/dev/v1_0_0/FunctionsClient.sol";
-import {FunctionsRequest} from "@chainlink/contracts/src/v0.8/functions/dev/v1_0_0/libraries/FunctionsRequest.sol";
+import {FunctionsClient} from "@chainlink/contracts/src/v0.8/functions/v1_0_0/FunctionsClient.sol";
+import {FunctionsRequest} from "@chainlink/contracts/src/v0.8/functions/v1_0_0/libraries/FunctionsRequest.sol";
 
 contract CartCostFunctions is FunctionsClient {
     using FunctionsRequest for FunctionsRequest.Request;
 
-    // State variables to store the last request ID, response, and error
-    bytes32 public s_lastRequestId;
-    bytes public s_lastResponse;
-    bytes public s_lastError;
+    bytes32 public lastRequestId;
+    bytes public lastResponse;
+    bytes public lastError;
 
-    // Custom error type
-    error UnexpectedRequestID(bytes32 requestId);
+    struct RequestStatus {
+        bool fulfilled;
+        bool exists;
+        bytes response;
+        bytes err;
+        string functionToCall;
+    }
+    mapping(bytes32 => RequestStatus) public requests;
+    bytes32[] public requestIds;
 
-    // Event to log responses
     event Response(
         bytes32 indexed requestId,
-        uint256 totalCartCost,
+        string data,
         bytes response,
         bytes err
     );
 
-    // Hardcoded for Fuji but changed for Sepolia
-    // Supported networks https://docs.chain.link/chainlink-functions/supported-networks
-    address router = 0x65Dcc24F8ff9e51F10DCc7Ed1e4e2A61e6E14bd6;
-    bytes32 donID =
-        0x66756e2d657468657265756d2d6d61696e6e65742d3100000000000000000000;
-
-    // Callback gas limit
+    address router = 0xb83E47C2bC239B3bf370bc41e1459A34b41238D0;
+    bytes32 donID = 0x66756e2d657468657265756d2d7365706f6c69612d3100000000000000000000;
     uint32 gasLimit = 300000;
-
-    // Your subscription ID.
-    uint64 public s_subscriptionId;
+    uint64 public subscriptionId;
 
     string public source =
-        "const events = JSON.parse(args[0]);"
-        "let totalCartCost = 0;"
-        "events.forEach(event => {"
-        "  if (event.event_name === 'product_added_to_cart') {"
-        "    totalCartCost += event.event_data.cartLineCost;"
-        "  }"
+        "const apiResponse = await Functions.makeHttpRequest({"
+        "url: `https://9172-213-214-42-42.ngrok-free.app/stats`,"
+        "responseType: 'json'"
         "});"
-        "return Functions.encodeUint256(totalCartCost);";
+        "if (apiResponse.error) {"
+        "throw Error('Request failed');"
+        "}"
+        "const { cartLineCostSum, productViewedCount, checkoutCompletedCount, totalTransactionAmount } = apiResponse.data;"
+        "const functionToCall = args[0];"
+        "switch(functionToCall) {"
+        "  case 'cartLineCostSum':"
+        "    return Functions.encodeString(cartLineCostSum.toString());"
+        "  case 'productViewedCount':"
+        "    return Functions.encodeString(productViewedCount.toString());"
+        "  case 'checkoutCompletedCount':"
+        "    return Functions.encodeString(checkoutCompletedCount.toString());"
+        "  case 'totalTransactionAmount':"
+        "    return Functions.encodeString(totalTransactionAmount.toString());"
+        "  default:"
+        "    throw Error('Invalid function call');"
+        "}";
 
-    constructor(uint64 subscriptionId) FunctionsClient(router) {
-        s_subscriptionId = subscriptionId;
+    struct StatsStruct {
+        string cartLineCostSum;
+        string productViewedCount;
+        string checkoutCompletedCount;
+        string totalTransactionAmount;
+        uint timestamp;
+    }
+    StatsStruct public stats;
+
+    constructor(uint64 functionsSubscriptionId) FunctionsClient(router) {
+        subscriptionId = functionsSubscriptionId;
     }
 
-    function getCartCost(
-        string memory jsonData
-    ) external returns (bytes32 requestId) {
-
+    function requestStat(string memory functionToCall) external returns (bytes32 requestId) {
         string[] memory args = new string[](1);
-        args[0] = jsonData;
+        args[0] = functionToCall;
 
         FunctionsRequest.Request memory req;
         req.initializeRequestForInlineJavaScript(source);
-        if (args.length > 0) req.setArgs(args); 
+        req.setArgs(args);
 
-        s_lastRequestId = _sendRequest(
+        lastRequestId = _sendRequest(
             req.encodeCBOR(),
-            s_subscriptionId,
+            subscriptionId,
             gasLimit,
             donID
         );
 
-        return s_lastRequestId;
+        requests[lastRequestId] = RequestStatus({
+            exists: true,
+            fulfilled: false,
+            response: "",
+            err: "",
+            functionToCall: functionToCall
+        });
+        requestIds.push(lastRequestId);
+
+        return lastRequestId;
     }
 
-    /**
-     * @notice Callback function for fulfilling a request
-     * @param requestId The ID of the request to fulfill
-     * @param response The HTTP response data
-     * @param err Any errors from the Functions request
-     */
     function fulfillRequest(
         bytes32 requestId,
         bytes memory response,
         bytes memory err
     ) internal override {
-        if (s_lastRequestId != requestId) {
-            revert UnexpectedRequestID(requestId); // Check if request IDs match
+        require(requests[requestId].exists, "request not found");
+
+        lastError = err;
+        lastResponse = response;
+
+        requests[requestId].fulfilled = true;
+        requests[requestId].response = response;
+        requests[requestId].err = err;
+
+        string memory data = string(response);
+        string memory functionToCall = requests[requestId].functionToCall;
+
+        if (compareStrings(functionToCall, "cartLineCostSum")) {
+            stats.cartLineCostSum = data;
+        } else if (compareStrings(functionToCall, "productViewedCount")) {
+            stats.productViewedCount = data;
+        } else if (compareStrings(functionToCall, "checkoutCompletedCount")) {
+            stats.checkoutCompletedCount = data;
+        } else if (compareStrings(functionToCall, "totalTransactionAmount")) {
+            stats.totalTransactionAmount = data;
         }
-        s_lastError = err;
 
-        // Update the contract's state variables with the response and any errors
-        s_lastResponse = response;
-        uint256 totalCartCost = abi.decode(response, (uint256));
+        stats.timestamp = block.timestamp;
 
-        // Emit an event to log the response
-        emit Response(requestId, totalCartCost, s_lastResponse, s_lastError);
+        emit Response(requestId, data, lastResponse, lastError);
+    }
+
+    function compareStrings(string memory a, string memory b) internal pure returns (bool) {
+        return keccak256(bytes(a)) == keccak256(bytes(b));
+    }
+
+    function getStats() external view returns (StatsStruct memory) {
+        return stats;
     }
 }

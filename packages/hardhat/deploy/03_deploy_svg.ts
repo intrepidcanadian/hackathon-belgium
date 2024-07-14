@@ -7,19 +7,21 @@ const deploysvg: DeployFunction = async function (hre: HardhatRuntimeEnvironment
 
   const { deployer } = await hre.getNamedAccounts();
   const { deploy } = hre.deployments;
-  const gasPrice = ethers.parseUnits('30', 'gwei'); 
+  const gasPrice = ethers.parseUnits('50', 'gwei'); 
 
-  const GamePriceSVGDeployed = await deploy("GamePriceSVG", {
+  const cartCostFunctionsAddress = "0x80a60bd70Bd544c8F4D42be55BF1aDC0Fe9494a6"; 
+
+  const CheckoutSVG = await deploy("EvolvingCheckoutSVG", {
     from: deployer,
-    args: [],
+    args: [cartCostFunctionsAddress],
     gasPrice,
     log: true,
     autoMine: true,
   });
 
-  const GamePriceSVGDeployedAddress = GamePriceSVGDeployed.address;
+  const CheckoutSVGAddress = CheckoutSVG.address;
 
-  console.log("GamePriceSVG deployed successfully at address:", GamePriceSVGDeployedAddress);
+  console.log("EvolvingSVG deployed successfully at address:", CheckoutSVGAddress);
 
 };
 

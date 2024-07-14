@@ -1,7 +1,7 @@
 import { BigInt } from "@graphprotocol/graph-ts";
-import { Transfer } from "../generated/GamePriceSVG/GamePriceSVG";
+import { Transfer } from "../generated/EvolvingCheckoutSVG/EvolvingCheckoutSVG";
 import { Token, Owner } from "../generated/schema";
-import { GamePriceSVG } from "../generated/GamePriceSVG/GamePriceSVG";
+import { EvolvingCheckoutSVG } from "../generated/EvolvingCheckoutSVG/EvolvingCheckoutSVG";
 import { Address } from "@graphprotocol/graph-ts";
 
 export function handleTransfer(event: Transfer): void {
@@ -26,7 +26,7 @@ export function handleTransfer(event: Transfer): void {
 }
 
 function fetchTokenURI(contractAddress: Address, tokenId: BigInt): string {
-  let contract = GamePriceSVG.bind(contractAddress);
+  let contract = EvolvingCheckoutSVG.bind(contractAddress);
   let tokenURIResult = contract.try_tokenURI(tokenId);
   return tokenURIResult.reverted ? "" : tokenURIResult.value;
 }

@@ -1,29 +1,24 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import { ethers } from "ethers";
 import type { NextPage } from "next";
 import { parseEther } from "viem";
-import { useAccount, useReadContract } from "wagmi";
-import { useWalletClient } from "wagmi";
-import { BugAntIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import { Header } from "~~/components/Header";
-import { Address, AddressInput, Balance, EtherInput } from "~~/components/scaffold-eth";
-import { useScaffoldContract, useScaffoldReadContract, useScaffoldWriteContract } from "~~/hooks/scaffold-eth";
+import { useAccount } from "wagmi";
+import { Address, EtherInput } from "~~/components/scaffold-eth";
+import { useScaffoldReadContract, useScaffoldWriteContract } from "~~/hooks/scaffold-eth";
 
 const Home: NextPage = () => {
   const { address: connectedAddress } = useAccount();
-  const [address, setAddress] = useState("");
   const [ethAmount, setEthAmount] = useState("");
-  const [tokenURI, setTokenURI] = useState<string>("");
-
-  console.log(ethAmount);
-
-  const { data: totalSupply } = useScaffoldReadContract({
-    contractName: "Token",
-    functionName: "totalSupply",
-  });
+  const [selectedStat, setSelectedStat] = useState("cartLineCostSum");
+  const [statResult, setStatResult] = useState<null | {
+    cartLineCostSum: string;
+    productViewedCount: string;
+    checkoutCompletedCount: string;
+    totalTransactionAmount: string;
+    timestamp: bigint;
+  }>(null);
 
   const { data: tokenBalance } = useScaffoldReadContract({
     contractName: "Token",
@@ -38,58 +33,98 @@ const Home: NextPage = () => {
 
   const { writeContractAsync: writeYourContractAsync } = useScaffoldWriteContract("TokenShop");
 
-  const { data: tokenURIData } = useScaffoldReadContract({
-    contractName: "GamePriceSVG",
-    functionName: "tokenURI",
-    args: [BigInt(0)],
+  const { writeContractAsync: requestStatAsync } = useScaffoldWriteContract("CartCostFunctions");
+
+  const { data: statsData, refetch: refetchStats } = useScaffoldReadContract({
+    contractName: "CartCostFunctions",
+    functionName: "getStats",
   });
 
+  const handleRequestStat: React.MouseEventHandler<HTMLButtonElement> = async () => {
+    try {
+      const tx = await requestStatAsync({ functionName: "requestStat", args: [selectedStat] });
+      refetchStats();
+    } catch (error) {
+      console.error("Error requesting stat:", error);
+    }
+  };
+
+  const renderEmojis = (count: string, emoji: string) => {
+    const numCount = parseInt(count, 10);
+    return (
+      <div className="flex flex-wrap bg-gray-100 p-2 rounded">
+        {Array.from({ length: numCount }, (_, index) => (
+          <span key={index} className="m-1">{emoji}</span>
+        ))}
+      </div>
+    );
+  };
+
+  const renderCartEmojis = (value: string) => {
+    const numValue = parseFloat(value) / 100; // Divide by 100
+    const numCarts = Math.floor(numValue);
+    return renderEmojis(numCarts.toString(), "🛒");
+  };
+
+  const renderMoneyEmojis = (value: string) => {
+    const numValue = parseFloat(value) / 100; // Divide by 100
+    const numMoneyBags = Math.floor(numValue);
+    return renderEmojis(numMoneyBags.toString(), "💰");
+  };
+
   useEffect(() => {
-    if (tokenURIData) {
-      const tokenURIString = tokenURIData.toString();
-      setTokenURI(tokenURIString);
-      console.log("Token URI:", tokenURIString);
-      console.log("Token URI Data:", tokenURIData);
+    if (statsData) {
+      setStatResult(statsData);
     }
-  }, [tokenURIData]);
-
-  const decodeBase64 = base64String => {
-    if (typeof window === "undefined") {
-      // For Node.js
-      return Buffer.from(base64String, "base64").toString("utf-8");
-    } else {
-      // For browser environment
-      const binaryString = window.atob(base64String);
-      const bytes = Uint8Array.from(binaryString, char => char.charCodeAt(0));
-      const decoder = new TextDecoder("utf-8");
-      return decoder.decode(bytes);
-    }
-  };
-
-  const decodeSVG = (tokenURI: string) => {
-    if (tokenURI) {
-      try {
-        const base64Json = tokenURI.split(",")[1];
-        const jsonString = decodeBase64(base64Json);
-        const json = JSON.parse(jsonString);
-        const base64Svg = json.image.split(",")[1];
-        return decodeBase64(base64Svg);
-      } catch (error) {
-        console.error("Error decoding SVG:", error);
-        return null;
-      }
-    }
-  };
-
-  const svgContent = decodeSVG(tokenURI);
+  }, [statsData]);
 
   return (
     <>
       <div className="flex items-center flex-col flex-grow pt-10">
         <h1 className="font-bold text-center text-4xl">
-          <span className="block text-2xl mb-2">Welcome to</span>
-          <span className="block text-4xl font-bold">Mr. Beast E-Commerce Contest</span>
+          <span className="block text-2xl mb-2">Online Marketing Attribution</span>
+          <span className="block text-4xl font-bold">E-Commerce Cost of Acquisition Alignment with Performance Metrics</span>
         </h1>
+        <div className="flex justify-center items-center space-x-2 flex-col sm:flex-row">
+          <label className="my-2 font-medium">Select Stat to Request:</label>
+          <select
+            value={selectedStat}
+            onChange={(e) => setSelectedStat(e.target.value)}
+            className="select select-bordered w-full max-w-xs"
+          >
+            <option value="cartLineCostSum">Cumulative Value of Products Added to Cart</option>
+            <option value="productViewedCount">Cumulative Count of Product Viewed</option>
+            <option value="checkoutCompletedCount">Cumulative Number of Checkouts Completed</option>
+            <option value="totalTransactionAmount">Cumulative Checkout Value Completed</option>
+          </select>
+          <button className="btn btn-primary my-2" onClick={handleRequestStat}>
+            Request Stat
+          </button>
+        </div>
+        {statResult && (
+          <div className="mr-12 ml-12 mt-6 max-w-full overflow-x-auto">
+            <h3 className="font-bold text-xl align-center">Campaign Result:</h3>
+            <div className="my-4">
+              <p className="font-semibold">Cumulative Value of Products Added to Cart: {statResult.cartLineCostSum}</p>
+              <div>{renderCartEmojis(statResult.cartLineCostSum)}</div>
+            </div>
+            <hr className="my-2"/>
+            <div className="my-4">
+              <p className="font-semibold">Cumulative Count of Products Viewed: {statResult.productViewedCount}</p>
+              <div>{renderEmojis(statResult.productViewedCount, "👀")}</div>
+            </div>
+            <hr className="my-2"/>
+            <div className="my-4">
+              <p className="font-semibold">Cumulative Number of Checkouts Completed: {statResult.checkoutCompletedCount}</p>
+              <div>{renderEmojis(statResult.checkoutCompletedCount, "✅")}</div>
+            </div>
+            <hr className="my-2"/>
+            <div className="my-4">
+              <p className="font-semibold">Cumulative Value of Checkouts Completed: {statResult.totalTransactionAmount}</p>
+              <div>{renderMoneyEmojis(statResult.totalTransactionAmount)}</div>
+            </div>
+          </div>
+        )}
         <div className="px-5">
           <div className="flex justify-center items-center space-x-2 flex-col sm:flex-row">
             <p className="my-2 font-medium">Connected Address:</p>
@@ -97,7 +132,7 @@ const Home: NextPage = () => {
           </div>
           <div className="flex justify-center items-center space-x-2 flex-col sm:flex-row">
             <p className="my-2 font-medium">
-              Amount of Mr. Beast Tokens Personally Owned:{" "}
+              Amount of Tokens Owned:{" "}
               {tokenBalance ? ethers.utils.formatUnits(tokenBalance, 2) : 0}
             </p>
           </div>
@@ -118,24 +153,14 @@ const Home: NextPage = () => {
                     value: parseEther(ethAmount),
                   });
                 } catch (e) {
-                  console.error("Error setting greeting:", e);
+                  console.error("Error", e);
                 }
               }}
             >
-              Purchase Tokens
+              Buy Tokens
             </button>
           </div>
         </div>
-        {/* <div className="flex flex-wrap justify-center items-center space-x-2 flex-col sm:flex-row">
-          {tokenURI && (
-            <div className="m-4 p-4 border border-gray-200 rounded">
-              {svgContent && <div dangerouslySetInnerHTML={{ __html: svgContent }} />}
-            </div>
-          )}
-        </div> */}
-
-        {/* <h3 className="font-bold text-2xl">We use Chainlink Oracle to recieve ETH/USD price to fix price at USD</h3> */}
-        {/* <p className="m-0 flex justify-center items-center">Total Supply of Beast Tokens: {totalSupply ? ethers.utils.formatUnits(totalSupply, 2) : 0}</p> */}
       </div>
     </>
   );

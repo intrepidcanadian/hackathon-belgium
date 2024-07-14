@@ -78,6 +78,7 @@ const TokenURITable = () => {
     <div className="flex justify-center items-center mt-10">
       <div className="overflow-x-auto shadow-2xl rounded-xl">
       <h2 className="text-2xl font-bold mb-4 text-center">Token URI Table</h2>
+      <h3 className="text-lg font-bold mb-4 text-center">NFTs - smile or frown are based on benchmarking whether checkout sales are greater than lower than latest price of ETH USD</h3>
         <table className="table bg-base-100 table-zebra">
           <thead>
             <tr className="rounded-xl">

@@ -1,15 +1,15 @@
 specVersion: 0.0.4
-description: GamePriceSVG Subgraph
+description: EvolvingCheckoutSVG Subgraph
 repository: https://github.com/scaffold-eth/se-2/packages/subgraph/
 schema:
   file: ./src/schema.graphql
 dataSources:
   - kind: ethereum/contract
-    name: GamePriceSVG
+    name: EvolvingCheckoutSVG
     network: sepolia
     source:
-      abi: GamePriceSVG
-      address: "0x811efA16Fb85644F95923e70787e093808B04dA8" 
+      abi: EvolvingCheckoutSVG
+      address: "0xd9E61BA5B48Bd6bd4CAc077CF885018a43702217" 
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -18,8 +18,8 @@ dataSources:
         - Token
         - Owner
       abis:
-        - name: GamePriceSVG
-          file: ./abis/sepolia_GamePriceSVG.json 
+        - name: EvolvingCheckoutSVG
+          file: ./abis/sepolia_EvolvingCheckoutSVG.json 
       eventHandlers:
         - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleTransfer
