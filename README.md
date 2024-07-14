@@ -1,5 +1,9 @@
 # ETH GLOBAL BRUSSELS 2024
 
+Hackathon Video: https://www.canva.com/design/DAGK5Jquyqk/H__1DYuQGDGo1gmhaCQfpw/edit?utm_content=DAGK5Jquyqk&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
+
+Hackathon Presentation: https://www.canva.com/design/DAGK5Jquyqk/H__1DYuQGDGo1gmhaCQfpw/edit?utm_content=DAGK5Jquyqk&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
+
 In this hackathon, I leveraged Shopify web pixels and QR Codes to show the data that can be collected and used for Chainlink Functions.
 
 The goal is to create transparency between e-commerce merchants and creators/influencers on key performance metrics which can be used to measure the impact of their marketing campaigns and align marketing expenditures with the value of marketing.
